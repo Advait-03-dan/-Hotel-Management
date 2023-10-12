@@ -1,9 +1,14 @@
-#include <iostream>
-#include <string.h>
-#include <conio.h>
-#include <map>
+#include<bits/stdc++.h>
+#include <cctype> 
 #define max 100
 using namespace std;
+std::string toLowerCase(const std::string &str) {
+    std::string result = str;
+    std::transform(result.begin(), result.end(), result.begin(),
+                   [](unsigned char c) { return std::tolower(c); });
+    return result;
+}
+
 map<int, int> mp;   //Gtkmm
 // Class Customer
 class Customer
@@ -88,7 +93,7 @@ Room Room::addRoom(int rno)
     room.status = 0;
 
     cout << "\n Room Added Successfully!";
-    getch();
+    cin.get();
     return room;
 }
 
@@ -115,12 +120,12 @@ void Room::searchRoom(int rno)
             cout << "\nRoom is available";
         }
         displayRoom(rooms[i]);
-        getch();
+        cin.get();
     }
     else
     {
         cout << "\nRoom not found";
-        getch();
+        cin.get();
     }
 }
 
@@ -163,7 +168,7 @@ void HotelMgnt::guestSummaryReport()
         }
     }
 
-    getch();
+    cin.get();
 }
 
 // hotel management reservation of room
@@ -187,7 +192,7 @@ void HotelMgnt::checkIn()
         if (rooms[i].status == 1)
         {
             cout << "\nRoom is already Booked";
-            getch();
+            cin.get();
             return;
         }
 
@@ -221,7 +226,7 @@ void HotelMgnt::checkIn()
         rooms[i].status = 1;
 
         cout << "\n Customer Checked-in Successfully..";
-        getch();
+        cin.get();
     }
 }
 
@@ -236,13 +241,13 @@ void HotelMgnt::getAvailRoom()
             displayRoom(rooms[i]);
             cout << "\n\nPress enter for next room";
             found = 1;
-            getch();
+            cin.get();
         }
     }
     if (found == 0)
     {
         cout << "\nAll rooms are reserved";
-        getch();
+        cin.get();
     }
 }
 
@@ -253,20 +258,21 @@ void HotelMgnt::searchCustomer(char *pname)
     int i, found = 0;
     for (i = 0; i < cnt; i++)
     {
-        if (rooms[i].status == 1 && stricmp(rooms[i].cust.name, pname) == 0)
+        if (rooms[i].status == 1 && toLowerCase(rooms[i].cust.name) == toLowerCase(pname))
+
         {
             cout << "\nCustomer Name: " << rooms[i].cust.name;
             cout << "\nRoom Number: " << rooms[i].roomNumber;
 
             cout << "\n\nPress enter for next record";
             found = 1;
-            getch();
+            cin.get();
         }
     }
     if (found == 0)
     {
         cout << "\nPerson not found.";
-        getch();
+        cin.get();
     }
 }
 
@@ -281,7 +287,7 @@ void HotelMgnt::checkOut(int roomNum)
         {
             // rno = rooms[i].roomNumber;
             found = 1;
-            // getch();
+            // cin.get();
             break;
         }
     }
@@ -309,7 +315,7 @@ void HotelMgnt::checkOut(int roomNum)
         cin>>g;
         checkOut(g);
     }
-    getch();
+    cin.get();
 }
 
 // managing rooms (adding and searching available rooms)
@@ -346,7 +352,7 @@ void manageRooms()
             {
                 cout << "\nRoom Number is Already Present.\nPlease enter unique Number";
                 flag = 0;
-                getch();
+                cin.get();
             }
             else
             {
@@ -400,7 +406,7 @@ int main()
             if (cnt == 0)
             {
                 cout << "\nRooms data is not available.\nPlease add the rooms first.";
-                getch();
+                cin.get();
             }
             else
                 hm.checkIn();
@@ -409,7 +415,7 @@ int main()
             if (cnt == 0)
             {
                 cout << "\nRooms data is not available.\nPlease add the rooms first.";
-                getch();
+                cin.get();
             }
             else
                 hm.getAvailRoom();
@@ -418,7 +424,7 @@ int main()
             if (cnt == 0)
             {
                 cout << "\nRooms are not available.\nPlease add the rooms first.";
-                getch();
+                cin.get();
             }
             else
             {
@@ -431,7 +437,7 @@ int main()
             if (cnt == 0)
             {
                 cout << "\nRooms are not available.\nPlease add the rooms first.";
-                getch();
+                cin.get();
             }
             else
             {
@@ -452,5 +458,5 @@ int main()
         }
     } while (opt != 7);
 
-    getch();
+    cin.get();
 }
